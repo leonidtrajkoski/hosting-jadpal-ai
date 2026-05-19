@@ -1,0 +1,778 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>jadpal.ai: AI Automation for Business Owners</title>
+  <meta name="description" content="If you run a business and your team is still doing manually what a machine could do in 30 seconds. See if you qualify for a free automation audit.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="jadpal.ai: AI Automation for Business Owners">
+  <meta property="og:description" content="See if you qualify for a free automation audit. AI agents built with Claude and n8n.">
+
+  <!-- Inter — same as reference -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       TOKENS — neutral palette, close to original white/light
+    ============================================================ */
+    :root {
+      --bg:           #0d1220;
+      --surface:      #182050;
+      --surface2:     #1e2a62;
+      --accent:       #e8c55c;
+      --accent-dark:  #3f60b2;
+      --text-1:       #e8e3d8;
+      --text-2:       #9ba4be;
+      --text-3:       #3d4870;
+      --red:          #f57a7a;
+      --red-bg:       rgba(245,122,122,0.12);
+      --border:       #1e2a62;
+      --card-shadow:  0 2px 3px rgba(0,0,0,.3),0 8px 14px rgba(0,0,0,.35),0 20px 30px rgba(0,0,0,.4);
+    }
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--bg);
+      color:var(--text-1);
+      font-family:'Inter',sans-serif;
+      font-size:16px;
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4,h5,h6,p,figure{margin:0;}
+    a{text-decoration:none;color:inherit;}
+    img{display:block;max-width:100%;}
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container{
+      width:100%;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 20px;
+    }
+    .container-narrow{
+      width:100%;
+      max-width:940px;
+      margin:0 auto;
+      padding:0 20px;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:28px;
+      padding:28px 0 18px;
+    }
+
+    /* eyebrow pill */
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:var(--red-bg);
+      border-radius:100px;
+      padding:7px 12px;
+      font-size:15px;
+      font-weight:500;
+      color:var(--red);
+      opacity:0;
+      transform:translateY(50px);
+      animation:rise .55s ease forwards;
+    }
+
+    /* headline — wrapping inline words like reference */
+    .headline{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:center;
+      gap:10px 5px;
+      max-width:950px;
+      opacity:0;
+      transform:translateY(50px);
+      animation:rise .55s .1s ease forwards;
+    }
+
+    .headline span{
+      font-size:46px;
+      font-weight:700;
+      letter-spacing:-3.36px;
+      line-height:1;
+      color:var(--text-1);
+      white-space:pre;
+    }
+
+    /* lime chip highlight */
+    .headline .chip{
+      background:var(--accent);
+      border-radius:8px;
+      padding:2px 8px;
+      font-size:46px;
+      font-weight:700;
+      letter-spacing:-2.7px;
+      line-height:1;
+      color:#120c04;
+      -webkit-text-fill-color:#120c04;
+      background-clip:unset;
+      -webkit-background-clip:unset;
+    }
+
+    /* sub-headline */
+    .hero-body{
+      font-size:18px;
+      font-weight:500;
+      letter-spacing:-0.19px;
+      color:var(--text-2);
+      text-align:center;
+      max-width:640px;
+      opacity:0;
+      transform:translateY(50px);
+      animation:rise .55s .2s ease forwards;
+    }
+    .hero-body strong{color:var(--text-1);font-weight:900;}
+
+    /* ============================================================
+       BUTTON — exact reference style
+    ============================================================ */
+    .btn-cta{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px 28px;
+      border-radius:118px;
+      font-size:24px;
+      font-weight:700;
+      color:#120c04;
+      cursor:pointer;
+      text-decoration:none;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .btn-cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(232,197,92,.45);}
+
+    .btn-cta__glow{
+      position:absolute;inset:0;border-radius:72px;
+      background:radial-gradient(25% 50% at 50% 0%, var(--accent) 0%, transparent 100%);
+      filter:blur(15px);
+    }
+    .btn-cta__stroke{
+      position:absolute;inset:0;border-radius:72px;
+      background:radial-gradient(20.7% 50% at 50% 0%, var(--accent) 0%, transparent 100%);
+    }
+    .btn-cta__fill{
+      position:absolute;inset:2px;border-radius:114px;
+      background:var(--accent);
+    }
+    .btn-cta__label{position:relative;z-index:1;}
+
+    /* dark button variant */
+    .btn-dark{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px 28px;
+      border-radius:118px;
+      font-size:16px;
+      font-weight:700;
+      color:#fff;
+      cursor:pointer;
+      text-decoration:none;
+      transition:opacity .2s;
+    }
+    .btn-dark:hover{opacity:.85;}
+    .btn-dark__glow{
+      position:absolute;inset:0;border-radius:72px;
+      background:radial-gradient(25% 50% at 50% 0%, var(--accent-dark) 0%, transparent 100%);
+      filter:blur(15px);
+    }
+    .btn-dark__stroke{
+      position:absolute;inset:0;border-radius:72px;
+      background:radial-gradient(20.7% 50% at 50% 0%, var(--accent-dark) 0%, transparent 100%);
+    }
+    .btn-dark__fill{
+      position:absolute;inset:2px;border-radius:114px;
+      background:var(--accent-dark);
+    }
+    .btn-dark__label{position:relative;z-index:1;}
+
+    /* ============================================================
+       VSL SECTION
+    ============================================================ */
+    .vsl-section{
+      display:flex;
+      flex-direction:row;
+      justify-content:center;
+      align-items:center;
+      padding:20px 0 40px;
+    }
+
+    .vsl-col{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      width:100%;
+      max-width:940px;
+    }
+
+    .vsl-card{
+      background:var(--surface2);
+      border-radius:20px;
+      padding:8px;
+      width:100%;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,.3),
+        0 8px 20px rgba(0,0,0,.35),
+        0 0 60px rgba(63,96,178,.18);
+      opacity:0;
+      transform:translateY(50px);
+      animation:rise .6s .1s ease forwards;
+    }
+
+    .vsl-embed{
+      aspect-ratio:16/9;
+      border-radius:14px;
+      overflow:hidden;
+      background:var(--surface);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .vsl-embed iframe{width:100%;height:100%;border:none;}
+
+    .vsl-placeholder{
+      width:100%;
+      height:100%;
+      min-height:360px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      color:var(--text-3);
+      font-size:15px;
+      font-weight:500;
+    }
+
+    /* cta block below video — same layout as reference */
+    .vsl-cta-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      opacity:0;
+      transform:translateY(50px);
+      animation:rise .55s .3s ease forwards;
+    }
+
+    .vsl-subtext{
+      font-size:18px;
+      font-weight:500;
+      letter-spacing:-0.19px;
+      color:var(--text-2);
+      text-align:center;
+      max-width:620px;
+    }
+    .vsl-subtext strong{color:var(--text-1);font-weight:900;}
+
+    /* ============================================================
+       PROOF CAROUSEL SECTION
+    ============================================================ */
+    .proof-section{
+      background:var(--surface);
+      padding:66px 0;
+      overflow:hidden;
+    }
+
+    .proof-title{
+      font-size:46px;
+      font-weight:700;
+      letter-spacing:-0.02em;
+      text-align:center;
+      color:var(--text-1);
+      padding:0 20px;
+      margin-bottom:48px;
+    }
+
+    /* ticker */
+    .ticker-outer{overflow:hidden;}
+
+    .ticker-track{
+      display:flex;
+      gap:47px;
+      width:max-content;
+      animation:scroll-left 45s linear infinite;
+    }
+    .ticker-track:hover{animation-play-state:paused;}
+
+    @keyframes scroll-left{
+      0%  {transform:translateX(0);}
+      100%{transform:translateX(-50%);}
+    }
+
+    .proof-card{
+      width:280px;
+      flex-shrink:0;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .proof-img{
+      aspect-ratio:2/3;
+      border-radius:24px;
+      overflow:hidden;
+      background:var(--surface2);
+      box-shadow:var(--card-shadow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .proof-img img{width:100%;height:100%;object-fit:cover;object-position:center;}
+
+    .proof-avatar-placeholder{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:42px;
+      color:var(--text-3);
+    }
+
+    .proof-name{
+      font-size:20px;
+      font-weight:700;
+      letter-spacing:0;
+      line-height:1.1em;
+      color:var(--text-1);
+    }
+
+    .proof-quote{
+      font-size:13px;
+      font-weight:400;
+      line-height:1.5em;
+      color:var(--text-2);
+      margin-top:4px;
+    }
+
+    /* CTA under carousel */
+    .proof-cta{
+      display:flex;
+      justify-content:center;
+      margin-top:40px;
+    }
+
+    /* ============================================================
+       VIDEO TESTIMONIALS
+    ============================================================ */
+    .videos-section{
+      background:var(--bg);
+      padding:80px 0;
+    }
+
+    .videos-title{
+      font-size:56px;
+      font-weight:700;
+      letter-spacing:-0.02em;
+      text-align:center;
+      color:var(--text-1);
+      margin-bottom:40px;
+    }
+
+    .videos-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:30px;
+    }
+
+    .video-item{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .video-thumb{
+      aspect-ratio:16/9;
+      border-radius:20px;
+      overflow:hidden;
+      background:var(--surface);
+      position:relative;
+      cursor:pointer;
+    }
+    .video-thumb img{width:100%;height:100%;object-fit:cover;}
+
+    .video-play-btn{
+      position:absolute;
+      top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      width:68px;height:48px;
+      background:none;border:none;cursor:pointer;padding:0;
+    }
+
+    .video-thumb-placeholder{
+      width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--text-3);font-size:13px;font-weight:500;
+      flex-direction:column;gap:10px;
+    }
+
+    .video-caption{
+      font-size:24px;
+      font-weight:500;
+      color:var(--text-1);
+      line-height:.9em;
+    }
+
+    /* ============================================================
+       FOOTER BAND — accent background like reference
+    ============================================================ */
+    .footer-band{
+      background:var(--accent);
+      padding:72px 0 40px;
+    }
+
+    .footer-inner{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:42px;
+    }
+
+    .footer-logo-circle{
+      width:80px;height:80px;
+      border-radius:50%;
+      background:#0d1220;
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+    }
+    .footer-logo-circle img{width:60px;height:auto;object-fit:contain;}
+    .footer-logo-circle span{
+      font-size:22px;font-weight:900;
+      color:var(--text-1);
+      letter-spacing:-0.05em;
+    }
+
+    .footer-copy{
+      font-size:15px;font-weight:500;
+      letter-spacing:0.3px;line-height:22px;
+      color:#120c04;text-align:center;
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal{
+      opacity:0;
+      transform:translateY(50px);
+      transition:opacity .55s ease,transform .55s ease;
+    }
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    /* ============================================================
+       ANIMATION
+    ============================================================ */
+    @keyframes rise{to{opacity:1;transform:translateY(0);}}
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media(max-width:809px){
+      .hero{gap:18px;padding:10px 0 5px;}
+      .headline span,.headline .chip{font-size:28px;letter-spacing:-2px;}
+      .hero-body{font-size:13px;}
+      .btn-cta{font-size:16px;padding:16px 28px;}
+      .vsl-section{padding:10px 0 40px;}
+      .proof-section{padding:40px 0;flex-direction:column;}
+      .proof-title{font-size:24px;margin-bottom:28px;}
+      .ticker-track{gap:15px;}
+      .proof-card{width:200px;}
+      .proof-name{font-size:14px;}
+      .videos-section{padding:40px 0;}
+      .videos-title{font-size:30px;}
+      .videos-grid{grid-template-columns:1fr;gap:20px;}
+      .video-caption{font-size:18px;}
+      .footer-band{padding:40px 0;}
+    }
+
+    @media(min-width:810px) and (max-width:1199px){
+      .headline span,.headline .chip{font-size:38px;}
+      .proof-title{font-size:36px;}
+      .ticker-track{gap:30px;}
+      .proof-card{width:240px;}
+      .proof-name{font-size:20px;}
+      .videos-title{font-size:46px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<section>
+  <div class="container">
+    <div class="hero">
+
+      <div class="eyebrow">
+        ⚠️ This page is only for business owners and founders
+      </div>
+
+      <div class="headline">
+        <span>How </span>
+        <span class="chip">Your Business</span>
+        <span> Gets </span>
+        <span class="chip">20+ Hours</span>
+        <span> Back </span>
+        <span>Every </span>
+        <span>Week </span>
+        <span>by </span>
+        <span>Automating </span>
+        <span>the </span>
+        <span class="chip">Work You Hate</span>
+      </div>
+
+      <p class="hero-body">
+        If you run a business and your team is still doing <strong>manually what a machine does in 30 seconds</strong>
+        and see if you qualify to join the <strong>founders who got their operations on autopilot.</strong>
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     VSL VIDEO
+================================================================ -->
+<section class="vsl-section">
+  <div class="container-narrow">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;">
+
+      <div class="vsl-card">
+        <div class="vsl-embed">
+          <!--
+            REPLACE WITH VSL EMBED:
+            Vturb example:
+            <vturb-smartplayer id="vid-XXXXXX" style="display:block;width:100%;"></vturb-smartplayer>
+            <script src="https://scripts.converteai.net/XXXX/players/XXXX/v4/player.js" async></script>
+          -->
+          <div class="vsl-placeholder">
+            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.25)"/>
+              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.4)"/>
+            </svg>
+            <span>VSL video will go here</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vsl-cta-wrap">
+        <a class="btn-cta" href="application.html">
+          <div class="btn-cta__glow"></div>
+          <div class="btn-cta__stroke"></div>
+          <div class="btn-cta__fill"></div>
+          <span class="btn-cta__label">See if you qualify</span>
+        </a>
+
+        <p class="vsl-subtext">
+          Running a business with <strong>manual work eating your time?</strong> Click to apply and see if you qualify to join the
+          <strong>founders who got 20+ hours back</strong> every single week.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SOCIAL PROOF CAROUSEL
+     Same structure and copy pattern as reference page
+================================================================ -->
+<section class="proof-section">
+  <div class="container">
+    <p class="proof-title reveal">
+      Business owners and founders who automated their operations with jadpal.ai
+    </p>
+  </div>
+
+  <div class="ticker-outer">
+    <div class="ticker-track" id="ticker">
+
+      <div class="proof-card">
+        <div class="proof-img">
+          <img src="images/joe.jpg" alt="Joe">
+        </div>
+        <p class="proof-name">Joe</p>
+        <p class="proof-quote">"10 years of manual sales grind. What's changed since working with jadpal is night and day."</p>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-img">
+          <img src="images/josh.jpg" alt="Josh">
+        </div>
+        <p class="proof-name">Josh</p>
+        <p class="proof-quote">"Very smooth honestly. The data had to stay on our own hardware. Compliance signed off on day one."</p>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-img">
+          <img src="images/justin.jpg" alt="Justin">
+        </div>
+        <p class="proof-name">Justin</p>
+        <p class="proof-quote">"We've basically solved the whole follow-up issue. It's freed up a lot more time for us now."</p>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-img">
+          <img src="images/shwan.jpg" alt="Shwan">
+        </div>
+        <p class="proof-name">Shwan</p>
+        <p class="proof-quote">"The system has run four months without me touching it. The chatbot I tried before lasted three weeks."</p>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-img">
+          <img src="images/daniel.jpg" alt="Daniel">
+        </div>
+        <p class="proof-name">Daniel</p>
+        <p class="proof-quote">"Jadpal built something in a week. I haven't checked WhatsApp on a weekend since."</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="proof-cta reveal">
+      <a class="btn-dark" href="application.html">
+        <div class="btn-dark__glow"></div>
+        <div class="btn-dark__stroke"></div>
+        <div class="btn-dark__fill"></div>
+        <span class="btn-dark__label">Click here to Apply</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     VIDEO TESTIMONIALS — "Watch the full stories"
+================================================================ -->
+<section class="videos-section">
+  <div class="container-narrow">
+
+    <h2 class="videos-title reveal">Watch the full stories</h2>
+
+    <div class="videos-grid reveal">
+
+      <!--
+        ASSET NOTE: Once Jadpal has YouTube interview links,
+        replace each .video-thumb-placeholder with:
+        <img src="https://i.ytimg.com/vi/VIDEO_ID/sddefault.webp" alt="">
+        and wire up the iframe embed on click.
+      -->
+
+      <div class="video-item">
+        <div class="video-thumb">
+          <div class="video-thumb-placeholder">
+            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.15)"/>
+              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.25)"/>
+            </svg>
+            <span style="font-size:12px">Add YouTube link</span>
+          </div>
+        </div>
+        <p class="video-caption">[Client]: From manual chaos to 22 hrs/week back</p>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb">
+          <div class="video-thumb-placeholder">
+            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.15)"/>
+              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.25)"/>
+            </svg>
+            <span style="font-size:12px">Add YouTube link</span>
+          </div>
+        </div>
+        <p class="video-caption">[Client]: Intake automated, team focused on real work</p>
+      </div>
+
+      <div class="video-item">
+        <div class="video-thumb">
+          <div class="video-thumb-placeholder">
+            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.15)"/>
+              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.25)"/>
+            </svg>
+            <span style="font-size:12px">Add YouTube link</span>
+          </div>
+        </div>
+        <p class="video-caption">[Client]: First automation live in 3 days</p>
+      </div>
+
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-top:48px;" class="reveal">
+      <a class="btn-cta" href="application.html">
+        <div class="btn-cta__glow"></div>
+        <div class="btn-cta__stroke"></div>
+        <div class="btn-cta__fill"></div>
+        <span class="btn-cta__label">See if you qualify</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================================
+     FOOTER BAND
+================================================================ -->
+<footer class="footer-band">
+  <div class="container">
+    <div class="footer-inner">
+
+      <div class="footer-logo-circle reveal">
+        <!--
+          Replace with <img src="logo.png" alt="jadpal.ai"> once available.
+          Logo should be white/light to show on dark circle.
+        -->
+        <span>J</span>
+      </div>
+
+      <p class="footer-copy reveal">
+        jadpal.ai © 2026 &ndash; All rights reserved.
+      </p>
+
+    </div>
+  </div>
+</footer>
+
+<!-- ================================================================
+     SCRIPTS
+================================================================ -->
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Duplicate ticker for seamless infinite scroll
+  const t = document.getElementById('ticker');
+  if (t) t.innerHTML += t.innerHTML;
+</script>
+
+</body>
+</html>
