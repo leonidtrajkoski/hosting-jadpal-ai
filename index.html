@@ -273,7 +273,8 @@
     }
 
     .videos-grid{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+      display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+      max-width:700px;margin:0 auto;
     }
 
     .video-item{display:flex;flex-direction:column;gap:14px;}
@@ -324,7 +325,7 @@
       display:flex;align-items:center;justify-content:center;
       overflow:hidden;backdrop-filter:blur(8px);
     }
-    .footer-logo-circle img{width:52px;height:auto;object-fit:contain;}
+    .footer-logo-circle img{width:100%;height:100%;object-fit:cover;object-position:center top;}
     .footer-logo-circle span{
       font-size:22px;font-weight:900;
       color:var(--accent);letter-spacing:-0.05em;
@@ -419,19 +420,12 @@
 
       <div class="vsl-card">
         <div class="vsl-embed">
-          <!--
-            REPLACE WITH VSL EMBED:
-            Vturb example:
-            <vturb-smartplayer id="vid-XXXXXX" style="display:block;width:100%;"></vturb-smartplayer>
-            <script src="https://scripts.converteai.net/XXXX/players/XXXX/v4/player.js" async></script>
-          -->
-          <div class="vsl-placeholder">
-            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.25)"/>
-              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.4)"/>
-            </svg>
-            <span>VSL video will go here</span>
-          </div>
+          <iframe
+            src="https://www.youtube.com/embed/4uz6j2IMD90?rel=0&modestbranding=1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="width:100%;height:100%;border:none;">
+          </iframe>
         </div>
       </div>
 
@@ -532,50 +526,30 @@
 
     <div class="videos-grid reveal">
 
-      <!--
-        ASSET NOTE: Once Jadpal has YouTube interview links,
-        replace each .video-thumb-placeholder with:
-        <img src="https://i.ytimg.com/vi/VIDEO_ID/sddefault.webp" alt="">
-        and wire up the iframe embed on click.
-      -->
-
       <div class="video-item">
-        <div class="video-thumb">
-          <div class="video-thumb-placeholder">
-            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.15)"/>
-              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.25)"/>
+        <div class="video-thumb" data-yt="9LfZ2ESYR-A" onclick="playYT(this)">
+          <img src="https://i.ytimg.com/vi/9LfZ2ESYR-A/sddefault.jpg" alt="Client story 1">
+          <button class="video-play-btn" aria-label="Play">
+            <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(0,0,0,.7)"/>
+              <polygon points="45,24 27,14 27,34" fill="#fff"/>
             </svg>
-            <span style="font-size:12px">Add YouTube link</span>
-          </div>
+          </button>
         </div>
-        <p class="video-caption">[Client]: From manual chaos to 22 hrs/week back</p>
+        <p class="video-caption">Your RAG chatbot is confidently wrong</p>
       </div>
 
       <div class="video-item">
-        <div class="video-thumb">
-          <div class="video-thumb-placeholder">
-            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.15)"/>
-              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.25)"/>
+        <div class="video-thumb" data-yt="CZMT7UX9RLs" onclick="playYT(this)">
+          <img src="https://i.ytimg.com/vi/CZMT7UX9RLs/sddefault.jpg" alt="Client story 2">
+          <button class="video-play-btn" aria-label="Play">
+            <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(0,0,0,.7)"/>
+              <polygon points="45,24 27,14 27,34" fill="#fff"/>
             </svg>
-            <span style="font-size:12px">Add YouTube link</span>
-          </div>
+          </button>
         </div>
-        <p class="video-caption">[Client]: Intake automated, team focused on real work</p>
-      </div>
-
-      <div class="video-item">
-        <div class="video-thumb">
-          <div class="video-thumb-placeholder">
-            <svg width="68" height="48" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="rgba(18,12,4,.15)"/>
-              <polygon points="45,24 27,14 27,34" fill="rgba(18,12,4,.25)"/>
-            </svg>
-            <span style="font-size:12px">Add YouTube link</span>
-          </div>
-        </div>
-        <p class="video-caption">[Client]: First automation live in 3 days</p>
+        <p class="video-caption">Why Law Firms Keep Losing Clients Every Weekend</p>
       </div>
 
     </div>
@@ -600,11 +574,8 @@
     <div class="footer-inner">
 
       <div class="footer-logo-circle reveal">
-        <!--
-          Replace with <img src="logo.png" alt="jadpal.ai"> once available.
-          Logo should be white/light to show on dark circle.
-        -->
-        <span>J</span>
+        <img src="images/logo.png" alt="jadpal.ai" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span style="display:none">J</span>
       </div>
 
       <p class="footer-copy reveal">
@@ -628,6 +599,19 @@
   // Duplicate ticker for seamless infinite scroll
   const t = document.getElementById('ticker');
   if (t) t.innerHTML += t.innerHTML;
+
+  // Click-to-play YouTube thumbnails
+  function playYT(el) {
+    const id = el.dataset.yt;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'width:100%;height:100%;border:none;';
+    el.innerHTML = '';
+    el.appendChild(iframe);
+    el.onclick = null;
+  }
 </script>
 
 </body>
