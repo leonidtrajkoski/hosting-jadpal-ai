@@ -1,10 +1,33 @@
 <!doctype html>
 <html dir="ltr" lang="en">
 <head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Apply: jadpal.ai</title>
   <meta name="description" content="Submit your application to see if you qualify for a free automation audit.">
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1368968941737627');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1368968941737627&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Typeform Embed SDK (free) -->
+  <script src="//embed.typeform.com/next/embed.js"></script>
+  <link rel="stylesheet" href="//embed.typeform.com/next/css/widget.css"/>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,11 +50,9 @@
       background:linear-gradient(160deg,#071e1b 0%,#0d3530 45%,#093028 70%,#071e1b 100%) fixed;
       color:var(--text-1);
       font-family:'Inter',sans-serif;
-      font-size:16px;
-      line-height:1.5;
+      font-size:16px;line-height:1.5;
       -webkit-font-smoothing:antialiased;
-      overflow-x:hidden;
-      min-height:100vh;
+      overflow-x:hidden;min-height:100vh;
     }
     a{text-decoration:none;color:inherit;}
 
@@ -39,18 +60,12 @@
 
     .nav{
       display:flex;align-items:center;justify-content:space-between;
-      padding:20px 0;
-      border-bottom:1px solid var(--border);
+      padding:20px 0;border-bottom:1px solid var(--border);
     }
-    .nav-logo{
-      font-size:20px;font-weight:900;
-      letter-spacing:-0.04em;color:var(--accent);
-    }
+    .nav-logo{font-size:20px;font-weight:900;letter-spacing:-0.04em;color:var(--accent);}
     .nav-back{
-      font-size:14px;font-weight:500;
-      color:var(--text-2);
-      display:inline-flex;align-items:center;gap:6px;
-      transition:color .2s;
+      font-size:14px;font-weight:500;color:var(--text-2);
+      display:inline-flex;align-items:center;gap:6px;transition:color .2s;
     }
     .nav-back:hover{color:var(--text-1);}
 
@@ -61,51 +76,40 @@
     }
     .page-header h1{
       font-size:52px;font-weight:700;
-      letter-spacing:-0.03em;line-height:1.1;
-      color:var(--text-1);
+      letter-spacing:-0.03em;line-height:1.1;color:var(--text-1);
     }
     .page-header p{
-      margin-top:14px;font-size:18px;font-weight:400;
-      color:var(--text-2);
+      margin-top:14px;font-size:18px;font-weight:400;color:var(--text-2);
       max-width:560px;margin-left:auto;margin-right:auto;
     }
 
     .divider{
-      width:100%;max-width:780px;
-      margin:0 auto 32px;height:1px;
-      background:var(--border);
-      opacity:0;animation:rise .4s .15s ease forwards;
+      width:100%;max-width:780px;margin:0 auto 32px;height:1px;
+      background:var(--border);opacity:0;animation:rise .4s .15s ease forwards;
     }
 
     .form-wrap{
-      width:100%;max-width:780px;
-      margin:0 auto;padding:0 20px 80px;
+      width:100%;max-width:780px;margin:0 auto;padding:0 20px 80px;
       opacity:0;animation:rise .55s .2s ease forwards;
     }
 
-    .tf-embed{
-      width:100%;height:600px;border:none;
-      border-radius:20px;overflow:hidden;
-      background:var(--glass);
-      outline:1px solid var(--border);
+    #tf-widget{
+      width:100%;height:600px;border-radius:20px;overflow:hidden;
+      background:var(--glass);outline:1px solid var(--border);
     }
 
     .footer-band{
-      background:rgba(0,0,0,0.3);
-      border-top:1px solid var(--border);
+      background:rgba(0,0,0,0.3);border-top:1px solid var(--border);
       padding:40px 0;text-align:center;
     }
-    .footer-copy{
-      font-size:14px;font-weight:400;
-      color:var(--text-2);
-    }
+    .footer-copy{font-size:14px;font-weight:400;color:var(--text-2);}
 
     @keyframes rise{to{opacity:1;transform:translateY(0);}}
 
     @media(max-width:600px){
       .page-header h1{font-size:32px;}
       .page-header p{font-size:15px;}
-      .tf-embed{height:520px;}
+      #tf-widget{height:520px;}
     }
   </style>
 </head>
@@ -114,9 +118,7 @@
 <div class="container">
   <nav class="nav">
     <span class="nav-logo">jadpal.ai</span>
-    <a class="nav-back" href="index.html">
-      ← Back
-    </a>
+    <a class="nav-back" href="index.html">← Back</a>
   </nav>
 </div>
 
@@ -128,17 +130,38 @@
 <div class="divider"></div>
 
 <div class="form-wrap">
-  <iframe
-    class="tf-embed"
-    src="https://form.typeform.com/to/BXcVis6o"
-    title="jadpal.ai application"
-    allow="camera; microphone; autoplay; encrypted-media;"
-  ></iframe>
+  <div id="tf-widget"></div>
 </div>
 
 <footer class="footer-band">
   <p class="footer-copy">jadpal.ai &copy; 2026 &ndash; All rights reserved.</p>
 </footer>
+
+<script>
+  window.addEventListener('load', function () {
+    if (typeof window.tf === 'undefined') {
+      // Fallback: plain iframe if SDK fails
+      document.getElementById('tf-widget').innerHTML =
+        '<iframe src="https://form.typeform.com/to/BXcVis6o" style="width:100%;height:100%;border:none;" allow="camera;microphone;autoplay;encrypted-media;" title="jadpal.ai application"></iframe>';
+      return;
+    }
+
+    window.tf.createWidget(document.getElementById('tf-widget'), {
+      formId: 'BXcVis6o',
+      opacity: 0,
+      hideHeaders: true,
+      hideFooter: true,
+      onSubmit: function () {
+        // Fire Meta Pixel Lead conversion
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Lead');
+        }
+        // Redirect to thank-you page
+        window.location.href = 'thank-you.html';
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
