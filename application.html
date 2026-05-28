@@ -25,10 +25,6 @@
     src="https://www.facebook.com/tr?id=1368968941737627&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
 
-  <!-- Typeform Embed SDK (free) -->
-  <script src="//embed.typeform.com/next/embed.js"></script>
-  <link rel="stylesheet" href="//embed.typeform.com/next/css/widget.css"/>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -93,9 +89,12 @@
       opacity:0;animation:rise .55s .2s ease forwards;
     }
 
-    #tf-widget{
-      width:100%;height:600px;border-radius:20px;overflow:hidden;
+    /* iframe approach — rock solid, no SDK needed */
+    .tf-iframe{
+      width:100%;height:650px;border:none;
+      border-radius:20px;overflow:hidden;
       background:var(--glass);outline:1px solid var(--border);
+      display:block;
     }
 
     .footer-band{
@@ -109,7 +108,7 @@
     @media(max-width:600px){
       .page-header h1{font-size:32px;}
       .page-header p{font-size:15px;}
-      #tf-widget{height:520px;}
+      .tf-iframe{height:580px;}
     }
   </style>
 </head>
@@ -130,7 +129,18 @@
 <div class="divider"></div>
 
 <div class="form-wrap">
-  <div id="tf-widget"></div>
+  <!--
+    The iframe embeds Typeform directly — no paid plan needed.
+    On submit, Typeform sends a postMessage which we catch below
+    to fire the Pixel and redirect to the thank-you page.
+  -->
+  <iframe
+    id="tf-iframe"
+    class="tf-iframe"
+    src="https://form.typeform.com/to/BXcVis6o"
+    title="jadpal.ai application"
+    allow="camera; microphone; autoplay; encrypted-media;"
+  ></iframe>
 </div>
 
 <footer class="footer-band">
@@ -138,28 +148,20 @@
 </footer>
 
 <script>
-  window.addEventListener('load', function () {
-    if (typeof window.tf === 'undefined') {
-      // Fallback: plain iframe if SDK fails
-      document.getElementById('tf-widget').innerHTML =
-        '<iframe src="https://form.typeform.com/to/BXcVis6o" style="width:100%;height:100%;border:none;" allow="camera;microphone;autoplay;encrypted-media;" title="jadpal.ai application"></iframe>';
-      return;
-    }
-
-    window.tf.createWidget(document.getElementById('tf-widget'), {
-      formId: 'BXcVis6o',
-      opacity: 0,
-      hideHeaders: true,
-      hideFooter: true,
-      onSubmit: function () {
-        // Fire Meta Pixel Lead conversion
-        if (typeof fbq !== 'undefined') {
-          fbq('track', 'Lead');
-        }
-        // Redirect to thank-you page
-        window.location.href = 'thank-you.html';
+  // Typeform fires a postMessage when the form is submitted.
+  // We listen for it, fire the Meta Pixel Lead event, then redirect.
+  window.addEventListener('message', function (e) {
+    if (
+      e.data &&
+      e.data.type === 'form-submit' &&
+      typeof e.data.formId === 'string' &&
+      e.data.formId.toLowerCase() === 'bxcvis6o'
+    ) {
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead');
       }
-    });
+      window.location.href = 'thank-you.html';
+    }
   });
 </script>
 
